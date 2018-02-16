@@ -9,7 +9,7 @@ final int largeur = 300 ;
 
 void setup() {
   size(10,10,P2D);
-  frame.setSize(int(largeur+100),int(largeur*1.5+100));
+  surface.setSize(int(largeur+100),int(largeur*1.5+100));
   frameRate(200);
   police = createFont("Arial Bold",32);
   boule = loadImage("bille.png");

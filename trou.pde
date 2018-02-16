@@ -1,6 +1,6 @@
 class Trou {
   PVector position;
-  float rayon = RAYON;
+  float rayon = RAYON*1.15;
   
   public Trou(float x, float y) {
     position = new PVector(x, y);
