@@ -3,10 +3,9 @@ class Balle {
   PVector position, vitesse ;
   color couleur ;
   boolean out ;
-  float VLIMITE = 0.01;
-  float FROTTEMENT = 0.994;
 
-  float rayon = 8;
+
+  float rayon = RAYON;
 
   public Balle(float x, float y, color c) {
     position = new PVector(x, y);
@@ -14,49 +13,14 @@ class Balle {
     couleur=c;
     out = false;
   }
-
-  public void draw() {
+  public boolean draw() {
     if (!out) {
-      noStroke();
-      fill(couleur);
-      ellipse(position.x, position.y, rayon*2, rayon*2);
-    }
+      tint(couleur);
+      image(boule,position.x-rayon,position.y-rayon,rayon*2,rayon*2);
+    } 
+    return out;
   }
 
-  public void tape(PVector f) {
-    vitesse = f.mult(0.1);
-  }
-  public float step() {
-    if (out) return 0;
-    position.add(vitesse);
-    vitesse.mult(FROTTEMENT);
-    rebond();
-    if (vitesse.magSq()<VLIMITE) vitesse.set(0, 0);
-    draw();
-    return vitesse.magSq();
-  }
-
-  void rebond() {
-    if (!out) {
-      if (position.x-rayon<10) {
-        position.x=rayon+10;
-        vitesse.x=-vitesse.x*FROTTEMENT;
-      }
-      if (position.x+rayon>width-10) {
-        position.x=width-rayon-10;
-        vitesse.x=-vitesse.x*FROTTEMENT;
-      }    
-      if (position.y-rayon<10) {
-        position.y=rayon+10;
-        vitesse.y=-vitesse.y*FROTTEMENT;
-      }
-      if (position.y+rayon>height-10) {
-        position.y=height-rayon-10;
-        vitesse.y=-vitesse.y*FROTTEMENT;
-      }
-
-    }
-  }
   void collision(Balle b) {
     if (!out && !b.out) {
       float d = PVector.dist(position, b.position);
